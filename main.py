@@ -63,7 +63,7 @@ if __name__ == '__main__':
         # np.save(filename, vector_propagate)
         print("epoch",i," finished")
         # recommendList = parallel_topK(uservector, rowM(vector_propagate,M), M, N, 3,core)
-        recall = Ktop(uservector, rowM(vector_propagate,M), M, N, 3,testarray)
+        recall = Ktop(uservector, rowM(vector_propagate,M), M, N, 20,testarray)
         recall = recall / dataset.testDataSize
         # count = evaluate(recommendList, testarray)
         # recall = count / dataset.testDataSize
@@ -74,24 +74,24 @@ if __name__ == '__main__':
         # np.save(filename, recall)
         vector_propagate = C_user_sum.dot(uservector)
         s = time.time()
-        recall = Ktop(uservector, rowM(vector_propagate,M), M, N, 3,testarray)
+        recall = Ktop(uservector, rowM(vector_propagate,M), M, N, 20,testarray)
         e = time.time()
         u = e-s
         print("Ktop:",u,"s")
         recall = recall / dataset.testDataSize
-        s = time.time()
-        recommendList = parallel_topK(uservector, rowM(vector_propagate,M), M, N, 3,core)
+        # s = time.time()
+        # recommendList = parallel_topK(uservector, rowM(vector_propagate,M), M, N, 3,core)
         # filename = f"{world.dataset}_reclist_{i}.npy"
         # np.save(filename, recommendList)
         # recommend_vector_csr = csr_matrix(recommend_vector)
         # sp.save_npz(dataset.path + '/recommend_vector_{i}.npz', recommend_vector_csr)
-        count = evaluate(recommendList, testarray)
-        e = time.time()
-        u = e-s
-        print("topK:",u,"s")
-        recall = count / dataset.testDataSize
+        # count = evaluate(recommendList, testarray)
+        # e = time.time()
+        # u = e-s
+        # print("topK:",u,"s")
+        # recall = count / dataset.testDataSize
         with open(f"{world.dataset}_{alpha}_{K}_recall.txt", 'a') as file:
-            file.write(f"epoch:{i} :     sum ver:  recall: {recall}")
+            file.write(f"epoch:{i} :     sum ver:  recall: {recall}\n")
         # print("sum ver:epoch:",i," recall:", recall)
         # filename = f"{world.dataset}_sum_recall_{i}.npy"
         # np.save(filename, recall)
